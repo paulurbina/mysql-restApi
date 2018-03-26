@@ -14,7 +14,8 @@
     "express": "^4.16.3",
     "morgan": "^1.9.0",
     "mysql": "^2.15.0",
-    "npm": "^5.7.1"
+    "npm": "^5.7.1",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "nodemon": "^1.17.2"

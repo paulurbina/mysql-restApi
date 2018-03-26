@@ -1,6 +1,6 @@
 const User = require('../models/user');
 
-module.exports = function (app) {
+module.exports = (app) => {
 
 	app.get('/users', (req, res) => {
 		User.getUsers((err, data) => {
@@ -11,9 +11,9 @@ module.exports = function (app) {
 	app.post('/users', (req, res) => {
 		const userData = {
 			id: null,
-			username:req.body.username,
-			password:req.body.password,
-			email:req.body.email,
+			username: req.body.username,
+			email: req.body.email,
+			password: req.body.password,
 			created_at:null,
 			updated_at:null
 		};
@@ -39,11 +39,11 @@ module.exports = function (app) {
 
 		const userData = {
 			id: req.params.id,
-			username:req.body.username,
-			password:req.body.password,
-			email:req.body.email,
-			created_at:null,
-			updated_at:null
+			username: req.body.username,
+			email: req.body.email,
+			password: req.body.password,
+			created_at: null,
+			updated_at: null
 		};
 
 		User.updateUser(userData, (err, data) => {
@@ -56,7 +56,22 @@ module.exports = function (app) {
 				});
 			}
 		});
+ 	});
 
-	});
+ app.delete('/users/:id', (req, res) => {
+    var id = req.params.id;
+    User.deleteUser(id, (err, data) =>  {
+      if (data && data.msg === 'deleted' || data.msg == 'not Exists') {
+        res.json({
+          success: 'true',
+          data
+        });
+      } else {
+        res.status(500).json({
+          msg: 'Error'
+        });
+      }
+    });
+  });
 
-}
+}; 
